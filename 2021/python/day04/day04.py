@@ -6,10 +6,18 @@ def markBingoCard(bingoCard, draw):
                 line[i] = -1
 
 def isWinner(bingoCard):
-    return 0
+    for line in bingoCard:
+        if sum(line) == -5:
+            return True
+    if -5 in [sum(num) for num in zip(*bingoCard)]:
+        return True
 
 def calculateWinner(bingoCard, draw):
-    return 0
+    total = 0
+    for line in bingoCard:
+        total += sum([n for n in line if n >= 0])
+    
+    return total*draw
 
 
 
@@ -28,9 +36,13 @@ for i in range(1,len(input)):
 
     bingos.append(bingoCard)
 
+winners = []
 for draw in drawing:
+    i = 0
     for bingoCard in bingos:
-        markBingoCard(bingoCard, draw)
-        if isWinner(bingoCard):
-            print(str(calculateWinner(bingoCard, draw)))
-            break
+        i += 1
+        if i not in winners:
+            markBingoCard(bingoCard, draw)
+            if isWinner(bingoCard):
+                winners.append(i)
+                print(str(i) + " " + str(calculateWinner(bingoCard, draw)))
