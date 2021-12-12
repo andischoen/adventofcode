@@ -73,9 +73,6 @@ def decodeline(line):
     return int(output)
 
 
-
-
-
 path = os.path.dirname(os.path.realpath(__file__))
 
 lines = []
@@ -85,7 +82,6 @@ with open(path + "\input.txt") as f:
 outputNumbers = []
 for line in lines:
     outputNumbers.append(decodeline(line))
-
 
 
 print("Sum of output: " + str(sum(outputNumbers)))
