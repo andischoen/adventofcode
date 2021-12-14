@@ -64,7 +64,6 @@ def getScoreForAutocomplete(stack):
     return score
 
 
-
 lines = []
 with open(path + "\input.txt") as f:
     lines = f.read().split()
