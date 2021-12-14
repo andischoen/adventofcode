@@ -5,7 +5,7 @@ path = os.path.dirname(os.path.realpath(__file__))
 
 polymere = ''
 lines = []
-with open(path + "\input-example.txt") as f:
+with open(path + "\input.txt") as f:
     halves = f.read().split('\n\n')
     polymere = halves[0]
     lines = halves[1].split('\n')
@@ -19,24 +19,68 @@ for line in lines:
 
 def pairinsertion(polymere, rules):
     newpolymere = []
-    print("".join(polymere)) 
+    # print("".join(polymere)) 
     for i in range(len(polymere)-1):
         newpolymere.append(polymere[i])
         newpolymere.append(rules[polymere[i]+polymere[i+1]])
     newpolymere.append(polymere[-1])
     return newpolymere
 
-iterations = 12
+def iteratepairs(pairs, rules):
+    newpairs = dict()
+    for pair in pairs:
+        c = rules[pair]
+        pair1 = pair[0] + c
+        pair2 = c + pair[1]
+
+        count = pairs[pair]
+        newpairs[pair1] = newpairs.setdefault(pair1, 0) + count
+        newpairs[pair2] = newpairs.setdefault(pair2, 0) + count
+    return newpairs
+
+def getpairsinpolymere(polymere):
+    pairs = dict()
+    for i in range(len(polymere)-1):
+        pair = polymere[i] + polymere[i+1]
+        pairs[pair] = pairs.setdefault(pair, 0) + 1
+
+    return pairs
+
+def countletters(pairs, lastletter):
+    count = dict()
+
+    for pair in pairs:
+        count[pair[0]] = count.setdefault(pair[0], 0) + pairs[pair]
+
+    count[lastletter] += 1
+
+    return count
+
+iterations = 10
+origpoplymere = polymere
 for i in range(iterations):
     polymere = pairinsertion(polymere, rules)
+    # print(Counter(polymere))
 
 count = Counter(polymere)
 
 countmostcommon = count.most_common()
 
-print(countmostcommon[0])
-print(countmostcommon[-1])
+mostminusleast = countmostcommon[0][1] - count.most_common()[-1][1]
+
+print("Part1: most common element after " + str(iterations) + " iterations minus least common: " + str(mostminusleast))
+
+pairs = getpairsinpolymere(origpoplymere)
+iterations = 40
+for i in range(iterations):
+    pairs = iteratepairs(pairs, rules)
+
+count = countletters(pairs, origpoplymere[-1])
+count = Counter(count)
+# print(count)
+
+countmostcommon = count.most_common()
 
 mostminusleast = countmostcommon[0][1] - count.most_common()[-1][1]
 
-print("most common element after " + str(iterations) + " iterations minus least common: " + str(mostminusleast))
+print("Part2: most common element after " + str(iterations) + " iterations minus least common: " + str(mostminusleast))
