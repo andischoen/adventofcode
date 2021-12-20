@@ -8,7 +8,7 @@ from anytree.util import rightsibling
 path = os.path.dirname(os.path.realpath(__file__))
 
 nubmers = []
-with open(path + "\input-example.txt") as f:
+with open(path + "\input.txt") as f:
     numbers = f.read().split('\n')
 
 def createtreefornumber(sfnumber, index, p):
@@ -167,7 +167,6 @@ def part2(numbers):
             left = createtreefornumber(numbers[i],0,None)
             right = createtreefornumber(numbers[j],0,None)
 
-
             result = add(left,right)
 
             while reduce(result):
@@ -178,6 +177,9 @@ def part2(numbers):
                 mag = m
                 print("new mag : " + str(mag))
 
+
+            left = createtreefornumber(numbers[i],0,None)
+            right = createtreefornumber(numbers[j],0,None)
             result = add(right,left)
 
             while reduce(result):
@@ -187,7 +189,7 @@ def part2(numbers):
             if m > mag:
                 mag = m
                 print("new mag : " + str(mag))
-            print(renderflat(result))
+            # debug: print(renderflat(result))
 
     print("Part2: max magnitude of snailfish homework: " + str(mag))
 
