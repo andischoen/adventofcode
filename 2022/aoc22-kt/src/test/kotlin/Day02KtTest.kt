@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Assertions.*
 
-class MainKtTest {
+class Day02KtTest {
 
     @org.junit.jupiter.api.Test
     fun getScore() {
