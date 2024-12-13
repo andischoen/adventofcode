@@ -3,7 +3,7 @@ package org.example
 class Day05 {
 
     fun solve() {
-        val text = getTextFromPuzzleInput("input05-test.txt")
+        val text = getTextFromPuzzleInput("input05.txt")
 
         val parts = text.split("\r\n\r\n")
         val rulesLines = parts[0].split("\r\n")
@@ -11,34 +11,39 @@ class Day05 {
 
         val rules = prepareRules(rulesLines)
         println(rules)
+
+        var res = 0
+        pageProductions.forEach {
+            res += checkProduction(it, rules)
+        }
+        println(res)
     }
 
-    private fun prepareRules(rulesLines: List<String>): MutableMap<Int, HashSet<Int>?> {
-        val rules = HashMap<Int, HashSet<Int>?>().withDefault { HashSet<Int>() }
-        for (rule in rulesLines) {
-            val parts = rule.split("|")
-            val key = parts[0].toInt()
-            val value = parts[1].toInt()
-
-            if(!rules.contains(key)) {
-                rules[key] = hashSetOf(value)
-            } else {
-                rules[key]?.add(value)
+    private fun checkProduction(production: String, rules: Map<Int, List<Int>>): Int {
+        val pages = production.split(",").map { it.toInt() }
+        for (i in pages.indices) {
+            val key = pages[i]
+            for(j in i+1..<pages.size) {
+                if (rules[key]?.contains(pages[j])!!) {
+                    //all good
+                } else if (!rules[pages[j]]?.contains(key)!!) {
+                    //all good
+                } else {
+                    return 0
+                }
             }
-
         }
 
+        return pages[(pages.size)/2]
+    }
+
+    private fun prepareRules(rulesLines: List<String>): Map<Int, List<Int>> {
+        val rules = rulesLines.map {
+            val parts = it.split("|")
+            intArrayOf(parts[0].toInt(), parts[1].toInt())
+        }.groupBy (keySelector = { it[0] }, valueTransform = { it[1] } )
+
         return rules
-//        val rules = mutableListOf<IntArray>()
-//
-//        rulesLines.forEach() {
-//            val parts = it.split("|")
-//            rules.add(intArrayOf(parts[0].toInt(), parts[1].toInt()))
-//        }
-//
-//        rules.groupBy (keySelector = { it[0] }, valueTransform = { it[1] } )
-//
-//        return rules
     }
 
 }
