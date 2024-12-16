@@ -1,8 +1,8 @@
 package org.example
 
-class Day05 {
+class Day05 : IDay {
 
-    fun solve() {
+    override fun solve() {
         val text = getTextFromPuzzleInput("input05.txt")
 
         val parts = text.split("\r\n\r\n")
@@ -24,11 +24,7 @@ class Day05 {
         for (i in pages.indices) {
             val key = pages[i]
             for(j in i+1..<pages.size) {
-                if (rules[key]?.contains(pages[j])!!) {
-                    //all good
-                } else if (!rules[pages[j]]?.contains(key)!!) {
-                    //all good
-                } else {
+                if (rules[pages[j]]?.contains(key)!!) {
                     return 0
                 }
             }
