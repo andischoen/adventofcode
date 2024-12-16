@@ -10,13 +10,48 @@ class Day05 : IDay {
         val pageProductions = parts[1].split("\r\n")
 
         val rules = prepareRules(rulesLines)
-        println(rules)
 
         var res = 0
         pageProductions.forEach {
             res += checkProduction(it, rules)
         }
-        println(res)
+        println("part 1 result: $res")
+
+        res = 0
+        val wrongProductions = pageProductions.filter { checkProduction(it, rules) == 0 }
+        wrongProductions.forEach{
+            res += fixProduction(it, rules)
+        }
+
+        println("part 2 result: $res")
+    }
+
+    private fun fixProduction(production: String, rules: Map<Int, List<Int>>): Int {
+        val pages = production.split(",").map { it.toInt() }.toMutableList()
+        return fixProduction(pages, rules)
+    }
+
+    private fun fixProduction(
+        pages: MutableList<Int>,
+        rules: Map<Int, List<Int>>
+    ): Int {
+        for (i in pages.indices) {
+            val key = pages[i]
+            for (j in i + 1..<pages.size) {
+                if (rules[pages[j]]?.contains(key)!!) {
+                    swapPlaces(i, j, pages)
+                    return fixProduction(pages, rules)
+                }
+            }
+        }
+
+        return pages[(pages.size) / 2]
+    }
+
+    private fun swapPlaces(i: Int, j: Int, pages: MutableList<Int>) {
+        val temp = pages[i]
+        pages[i] = pages[j]
+        pages[j] = temp
     }
 
     private fun checkProduction(production: String, rules: Map<Int, List<Int>>): Int {
