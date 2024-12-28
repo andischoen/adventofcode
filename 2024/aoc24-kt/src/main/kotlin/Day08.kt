@@ -16,7 +16,11 @@ class Day08: IDay {
         //build all combinations of each frequency and place the antinodes
         val xRange = lines[0].indices
         val yRange = lines.indices
-        frequencies.values.forEach() { placeAntinodes(it, xRange, yRange) }
+        //part1
+        //frequencies.values.forEach() { placeAntinodes(it, xRange, yRange) }
+
+        //part2
+        frequencies.values.forEach() { placeAntinodes2(it, xRange, yRange) }
 
         println(antinodes)
 
@@ -45,6 +49,42 @@ class Day08: IDay {
                 y = (a.second + deltaY)
 
                 if(x in xRange && y in yRange) antinodes.add(x to y)
+            }
+        }
+    }
+
+    private fun placeAntinodes2(antennas: MutableList<Pair<Int, Int>>, xRange: IntRange, yRange: IntRange) {
+        for(i in antennas.indices) {
+            for(j in i+1 .. antennas.size-1) {
+                val a = antennas[i]
+                val b = antennas[j]
+
+                antinodes.add(a)
+                antinodes.add(b)
+
+                // a -> b
+                var deltaX = b.first - a.first
+                var deltaY = b.second - a.second
+                var x = (b.first + deltaX)
+                var y = (b.second + deltaY)
+
+                while(x in xRange && y in yRange) {
+                    antinodes.add(x to y)
+                    x += deltaX
+                    y += deltaY
+                }
+
+                // b -> a
+                deltaX = a.first - b.first
+                deltaY = a.second - b.second
+                x = (a.first + deltaX)
+                y = (a.second + deltaY)
+
+                while (x in xRange && y in yRange) {
+                    antinodes.add(x to y)
+                    x += deltaX
+                    y += deltaY
+                }
             }
         }
     }
