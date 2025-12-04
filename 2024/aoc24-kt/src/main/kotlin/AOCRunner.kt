@@ -4,8 +4,11 @@ import java.io.BufferedReader
 
 fun main() {
 
-    val d = Day05()
-
+//    val d = Day05()
+//    val d = Day06()
+//    val d = Day07()
+//    val d = Day08()
+    val d = Day09()
     d.solve()
 
 }
