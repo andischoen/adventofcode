@@ -7,7 +7,7 @@ import java.io.BufferedReader
 fun main() {
     val day02 = Day02();
 
-    day02.solve();
+    day02.solve(2);
 }
 
 

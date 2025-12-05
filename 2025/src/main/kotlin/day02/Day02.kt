@@ -5,10 +5,9 @@ import andi.aoc25.getLinesFromPuzzleInput
 import andi.aoc25.getTextFromPuzzleInput
 
 class Day02: IDay {
-    override fun solve() {
+    override fun solve(part: Int) {
         val ranges = getTextFromPuzzleInput("input02.txt").split(",")
-
-        val regex = Regex("(.+)\\1")
+        val regex:Regex = if(part == 1) Regex("(.+)\\1") else Regex("(.+)\\1+")
 
         val fakeIds = ArrayList<List<String>>()
 

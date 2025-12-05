@@ -2,6 +2,6 @@ package andi.aoc25
 
 interface IDay {
 
-    fun solve();
+    fun solve(part:Int);
 
 }
