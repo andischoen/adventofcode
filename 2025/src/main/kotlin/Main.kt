@@ -5,9 +5,10 @@ import java.io.BufferedReader
 
 
 fun main() {
-    val day02 = Day02();
+    //val day = Day02();
+    val day = Day03();
 
-    day02.solve(2);
+    day.solve(1);
 }
 
 

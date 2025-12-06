@@ -18,7 +18,7 @@ class Day02: IDay {
             tempFakeIds.forEach{fakeId -> println(fakeId)}
         }
 
-        val res = fakeIds.flatten().map { fakeId -> fakeId.toLong() }.sum();
+        val res = fakeIds.flatten().sumOf { fakeId -> fakeId.toLong() };
 
         println("Sum of fake Ids = $res");
     }
