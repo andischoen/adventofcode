@@ -1,14 +1,20 @@
 package andi.aoc25
 
 import andi.aoc25.day02.Day02
+import andi.aoc25.day03.Day03
 import java.io.BufferedReader
 
 
 fun main() {
-    //val day = Day02();
-    val day = Day03();
+    val day02 = Day02()
+    val day03 = Day03()
 
-    day.solve(1);
+//    println("day 02, part 1 -> " + day02.solve(1))
+//    println("day 02, part 2 -> " + day02.solve(2))
+//    println("day 03, part 1 -> " + day03.solve(1))
+    println("day 03, part 2 -> " + day03.solve(2, false))
+
+
 }
 
 

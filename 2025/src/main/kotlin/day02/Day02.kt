@@ -1,11 +1,10 @@
 package andi.aoc25.day02
 
 import andi.aoc25.IDay
-import andi.aoc25.getLinesFromPuzzleInput
 import andi.aoc25.getTextFromPuzzleInput
 
 class Day02: IDay {
-    override fun solve(part: Int) {
+    override fun solve(part: Int, sample: Boolean): String {
         val ranges = getTextFromPuzzleInput("input02.txt").split(",")
         val regex:Regex = if(part == 1) Regex("(.+)\\1") else Regex("(.+)\\1+")
 
@@ -20,7 +19,7 @@ class Day02: IDay {
 
         val res = fakeIds.flatten().sumOf { fakeId -> fakeId.toLong() };
 
-        println("Sum of fake Ids = $res");
+        return res.toString()
     }
 
     private fun extracted(id: String) {
