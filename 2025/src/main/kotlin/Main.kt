@@ -15,7 +15,8 @@ fun main() {
 //    println("day 02, part 2 -> " + day02.solve(2))
 //    println("day 03, part 1 -> " + day03.solve(1))
 //    println("day 03, part 2 -> " + day03.solve(2, false))
-    println("day 04, part 1 -> " + day04.solve(1, false))
+//    println("day 04, part 1 -> " + day04.solve(1, false))
+    println("day 04, part 2 -> " + day04.solve(2, false))
 
 }
 

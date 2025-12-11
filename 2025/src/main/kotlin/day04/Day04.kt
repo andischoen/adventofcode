@@ -18,12 +18,12 @@ class Day04: IDay {
         N, NE, E, SE, S, SW, W, NW
     )
 
-    lateinit var map:List<String>
+    lateinit var map:List<CharArray>
 
     private fun checkIfMovablePaper(ch: Char, x: Int, y: Int):Boolean {
         if(ch != '@') return false
         else {
-            val xLastInd = map[0].length - 1
+            val xLastInd = map[0].size - 1
             val yLastInd = map.size - 1
             var paperCount = 0
             for (offset in directions) {
@@ -45,15 +45,51 @@ class Day04: IDay {
             if(sample) "input04-sample.txt"
             else "input04.txt"
 
-        map = getLinesFromPuzzleInput(filename)
+        map = getLinesFromPuzzleInput(filename).map { l -> l.toCharArray() }
+
+
         var counter = 0
-        for(y in 0 .. map.size-1) {
-            val line = map[y];
-            for (x in 0 .. line.length-1 ) {
-                counter += if(checkIfMovablePaper(line[x], x, y)) 1 else 0
-            }
+        if(part == 1) {
+
+            counter = countAndRemoveMovablePaper()
+
+        } else {
+
+            var c = 0
+            do {
+                c = countAndRemoveMovablePaper()
+                counter += c
+            } while(c>0)
+
         }
 
         return counter.toString();
+    }
+
+    private fun countAndRemoveMovablePaper(): Int {
+        var cnt = 0
+        val toBeRemoved = ArrayList<Coordinate>()
+        for (y in 0..<map.size) {
+            val line = map[y];
+            for (x in 0..<line.size) {
+                if (checkIfMovablePaper(line[x], x, y)) {
+                    cnt++
+                    toBeRemoved.add(Coordinate(x, y))
+                }
+            }
+        }
+
+        for (coordinate in toBeRemoved) {
+            map[coordinate.y][coordinate.x] = 'x'
+        }
+
+        printMap(map)
+
+        return cnt
+    }
+
+    private fun printMap(map: List<CharArray>) {
+        map.forEach { cA -> println(String(cA)) }
+        println()
     }
 }
