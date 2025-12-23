@@ -4,6 +4,9 @@ import andi.aoc25.IDay
 import andi.aoc25.getLinesFromPuzzleInput
 
 class Day07: IDay {
+
+    val debug = true
+
     override fun solve(part: Int, sample: Boolean): String {
         val filename = if(sample) "input07-sample.txt" else "input07.txt"
         val lines = getLinesFromPuzzleInput(filename)
@@ -13,7 +16,7 @@ class Day07: IDay {
         for(line in lines) {
             if(line.contains("S")) { // first line
                 indices.add(line.indexOf('S'))
-                println(line)
+                if(debug) println(line)
             } else {
                 val nextIndices = HashSet<Int>()
                 val thisLine = StringBuilder()
@@ -26,11 +29,14 @@ class Day07: IDay {
                         if ((i + 1) <= line.lastIndex) nextIndices.add(i + 1)
                     }
                 }
-                for(i in 0 until lines.size) {
-                    if (nextIndices.contains(i)) thisLine.append('|')
-                    else thisLine.append('.')
+                if(debug) {
+                    for (i in 0 until lines.size) {
+                        if (nextIndices.contains(i)) thisLine.append('|')
+                        else if(indices.contains(i)) thisLine.append('^')
+                        else thisLine.append('.')
+                    }
+                    println(thisLine.toString())
                 }
-                println(thisLine.toString())
                 indices = nextIndices
             }
         }
