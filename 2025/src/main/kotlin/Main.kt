@@ -6,6 +6,7 @@ import andi.aoc25.day04.Day04
 import andi.aoc25.day05.Day05
 import andi.aoc25.day06.Day06
 import andi.aoc25.day07.Day07
+import andi.aoc25.day08.Day08
 import java.io.BufferedReader
 
 
@@ -16,6 +17,7 @@ fun main() {
     val day05 = Day05()
     val day06 = Day06()
     val day07 = Day07()
+    val day08 = Day08()
 
 //    println("day 02, part 1 -> " + day02.solve(1))
 //    println("day 02, part 2 -> " + day02.solve(2))
@@ -26,7 +28,8 @@ fun main() {
 //    println("day 05, part 1 -> " + day05.solve(2, false))
 //    println("day 06, part 1 -> " + day06.solve(2, false))
 //    println("day 07, part 1 -> " + day07.solve(1, false))
-    println("day 07, part 2 -> " + day07.solve(2, false))
+//    println("day 07, part 2 -> " + day07.solve(2, false))
+    println("day 08, part 1 -> " + day08.solve(1, false))
 
 
 }
