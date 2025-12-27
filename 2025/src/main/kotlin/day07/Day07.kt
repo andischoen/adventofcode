@@ -15,7 +15,7 @@ class Day07: IDay {
         lines = getLinesFromPuzzleInput(filename)
 
         if(part == 1) {
-            var splits = solvePart1(lines)
+            val splits = solvePart1(lines)
 
             return splits.toString()
         } else {
@@ -27,27 +27,16 @@ class Day07: IDay {
         }
     }
 
-    //fun factorial(n: Int): Int = cache.getOrPut(n) { // <-- this is the fix
-    //    when (n) {
-    //        0, 1 -> 1
-    //        else -> n * factorial(n - 1)
-    //    }
-    //}
     private fun calculatePathsFrom(p: Pair<Int, Int>):Long {
-        if(cache.containsKey(p)) return cache.getValue(p)
-        if(p.first > lines.lastIndex) {
-            cache[p] = 1
-            return 1
-        }
-        if(lines[p.first][p.second] == '^') {
-            val r = calculatePathsFrom(Pair(p.first+1, p.second+1)) + calculatePathsFrom(Pair(p.first+1, p.second-1))
-            cache[p] = r
-            return r;
-        } else {
-            val r = calculatePathsFrom(Pair(p.first+1, p.second))
-            cache[p] = r
-            return r
-        }
+        return cache.getOrPut(p) { essentialPart2(p) }
+    }
+
+    private fun essentialPart2(p: Pair<Int, Int>): Long {
+        if (p.first > lines.lastIndex) return 1
+        return if (lines[p.first][p.second] == '^')
+            calculatePathsFrom(Pair(p.first + 1, p.second + 1)) + calculatePathsFrom(Pair(p.first + 1, p.second - 1))
+        else
+            calculatePathsFrom(Pair(p.first + 1, p.second))
     }
 
     private fun solvePart1(lines: List<String>): Int {
