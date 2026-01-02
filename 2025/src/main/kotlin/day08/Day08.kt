@@ -2,6 +2,7 @@ package andi.aoc25.day08
 
 import andi.aoc25.IDay
 import andi.aoc25.getLinesFromPuzzleInput
+import kotlin.math.pow
 
 class Day08: IDay {
 
@@ -9,9 +10,9 @@ class Day08: IDay {
     val distances = ArrayList<Triple<JunctionBox, JunctionBox, Long>>()
 
     private fun getDistance(p1: JunctionBox, p2: JunctionBox): Long {
-        return  Math.powExact((p1.x - p2.x).toLong(), 2) +
-                Math.powExact((p1.y - p2.y).toLong(), 2) +
-                Math.powExact((p2.z - p1.z).toLong(), 2)
+        return  (p1.x - p2.x).toDouble().pow(2).toLong() +
+                (p1.y - p2.y).toDouble().pow(2).toLong() +
+                (p2.z - p1.z).toDouble().pow(2).toLong()
     }
 
     override fun solve(part: Int, sample: Boolean): String {
